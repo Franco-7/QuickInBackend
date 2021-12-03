@@ -67,9 +67,7 @@ class UserController extends Controller
         // Newest next trip
         $trip_n = DB::table('trips')
             ->where('employee_number', '=', $id)
-            // ->join('vehicles', 'trips.vehicle_id', '=', 'vehicles.vehicle_id')
             ->where('status', '=', 2)
-            // ->select('trips.*', 'vehicles.make', 'vehicles.model')
             ->orderBy('date', 'asc')
             ->limit(1)
             ->get();
@@ -77,9 +75,7 @@ class UserController extends Controller
         // Newest pending trip
         $trip_p = DB::table('trips')
             ->where('employee_number', '=', $id)
-            // ->join('vehicles', 'trips.vehicle_id', '=', 'vehicles.vehicle_id')
             ->where('status', '=', 1)
-            // ->select('trips.*', 'vehicles.make', 'vehicles.model')
             ->orderBy('date', 'asc')
             ->limit(1)
             ->get();
@@ -88,10 +84,8 @@ class UserController extends Controller
         $trip_o = DB::table('trips')
             ->where('employee_number', '=', $id)
             ->join('vehicle_statuses', 'trips.trip_id', '=', 'vehicle_statuses.trip_id')
-            // ->join('vehicles', 'trips.vehicle_id', '=', 'vehicles.vehicle_id')
             ->where('status', '=', 4)
             ->select('trips.*', 'vehicle_statuses.kilometres', 'vehicle_statuses.fuel_used')
-            // ->select('trips.*', 'vehicles.make', 'vehicles.model', 'vehicle_statuses.kilometres', 'vehicle_statuses.fuel_used')
             ->orderBy('date', 'asc')
             ->limit(1)
             ->get();
